@@ -11,6 +11,8 @@ use App\Models\AppRequest;
 use App\Models\User;
 use App\Models\State;
 use App\Models\Categories;
+use App\Models\SubCategory;
+use App\Models\Brand;
 
 use Mail;
 use App\Mail\TransactionsMail;
@@ -135,6 +137,14 @@ class HomeController extends Controller
         $categoryList = Categories::where('status', '1')->whereNull('deleted_at')->orderBy('id','DESC')->get(); 
     	return view($this->viewFolder.'home.post-ads',['categoryList'=>$categoryList]);
     }
+
+    public function get_sub_category(Request $Request)
+    {
+        $category_id=$Request->category_id;
+        $subcategoryList = SubCategory::where('status', '1')->where('category_id', $category_id)->whereNull('deleted_at')->orderBy('id','DESC')->get(); 
+    	return view($this->viewFolder.'home.sub_category',['subcategoryList'=>$subcategoryList]);
+    }
+
 
    
     

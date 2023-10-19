@@ -32,6 +32,7 @@ Route::middleware([Userauth::class])->group(function()
     Route::get('profile-setting',[HomeController::class,'profile_setting']);
     Route::post('update-profile',[HomeController::class,'update_profile']);
     Route::get('post-ads',[HomeController::class,'post_ads']);
+    Route::get('get-sub-category',[HomeController::class,'get_sub_category']);
 });
 
 
