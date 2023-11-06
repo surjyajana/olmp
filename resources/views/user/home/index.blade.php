@@ -67,210 +67,48 @@
 <h4 class="sub-title">Discover & connect with top-rated local businesses</h4>
 </div>
 </div>
+
+
+@foreach ($alladList as $aList)
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
 <div class="featured-box">
 <figure>
-<div class="homes-tag featured">Cameras</div>
+<div class="homes-tag featured">{{$aList->category_name}}</div>
 <div class="homes-tag rent"><i class="lni-heart"></i> 202</div>
 <span class="price-save">
-$200
+INR {{$aList->price}}
 </span>
-<a href="#"><img class="img-fluid" src="{{ URL::asset('assets/user') }}/img/featured/img-1.jpg" alt=""></a>
+<a href="#"><img class="img-fluid" src="{{ URL::asset('assets/user/ads_image/'.$aList->ad_photo_1) }}" alt=""></a>
 </figure>
 <div class="content-wrapper">
 <div class="feature-content">
-<h4><a href="ads-details.html">Canon SX Powershot ...</a></h4>
-<p class="listing-tagline">Club and shop for you</p>
+<h4><a href="ads-details.html">{{$aList->ad_title}}</a></h4>
+<!-- <p class="listing-tagline">Shop for you</p> -->
 <div class="meta-tag">
+
+<div class="user-name">
+<a ><i class="lni-user"></i> {{$aList->customer_name}}</a>
+</div>
+<div class="listing-category">
+<a ><i class="lni-display"></i>{{$aList->sub_category_name}} </a>
+</div>
 <div class="listing-review">
 <span class="review-avg">4.5</span>
 2 Ratings
 </div>
-<div class="user-name">
-<a href="#"><i class="lni-user"></i> Jone</a>
-</div>
-<div class="listing-category">
-<a href="#"><i class="lni-display"></i>Electronic </a>
-</div>
 </div>
 </div>
 <div class="listing-bottom clearfix">
-<a href="#" class="float-left"><i class="lni-map-marker"></i> New York, US</a>
+<a  class="float-left"><i class="lni-map-marker"></i>{{$aList->city}}, {{$aList->state}}</a>
 <a href="ads-details.html" class="float-right">View Details</a>
 </div>
 </div>
 </div>
 </div>
-<div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-<div class="featured-box">
-<figure>
-<div class="homes-tag featured">Laptop</div>
-<div class="homes-tag rent"><i class="lni-heart"></i> 152</div>
-<span class="price-save">
-$1499
-</span>
-<a href="#"><img class="img-fluid" src="{{ URL::asset('assets/user') }}/img/featured/img-2.jpg" alt=""></a>
-</figure>
-<div class="content-wrapper">
-<div class="feature-content">
-<h4><a href="ads-details.html">Apple Macbook Pro ...</a></h4>
-<p class="listing-tagline">Club and shop for you</p>
-<div class="meta-tag">
-<div class="listing-review">
-<span class="review-avg">4.5</span>
-2 Ratings
-</div>
-<div class="user-name">
-<a href="#"><i class="lni-user"></i> Jessica</a>
-</div>
-<div class="listing-category">
-<a href="#"><i class="lni-laptop"></i>Computers</a>
-</div>
-</div>
-</div>
-<div class="listing-bottom clearfix">
-<a href="#" class="float-left"><i class="lni-map-marker"></i> California, US</a>
-<a href="ads-details.html" class="float-right">View Details</a>
-</div>
-</div>
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-<div class="featured-box">
-<figure>
-<div class="homes-tag featured">Cars</div>
-<div class="homes-tag rent"><i class="lni-heart"></i> 155</div>
-<span class="price-save">
-$2000
-</span>
-<a href="#"><img class="img-fluid" src="{{ URL::asset('assets/user') }}/img/featured/img-3.jpg" alt=""></a>
-</figure>
-<div class="content-wrapper">
-<div class="feature-content">
-<h4><a href="ads-details.html">Mercedes Benz E200 ...</a></h4>
-<p class="listing-tagline">Club and shop for you</p>
-<div class="meta-tag">
-<div class="listing-review">
-<span class="review-avg">4.5</span>
-3 Ratings
-</div>
-<div class="user-name">
-<a href="#"><i class="lni-user"></i> Maria Barlow</a>
-</div>
-<div class="listing-category">
-<a href="#"><i class="lni-car"></i>Vehicle </a>
-</div>
-</div>
-</div>
-<div class="listing-bottom clearfix">
-<a href="#" class="float-left"><i class="lni-map-marker"></i> Washington, US</a>
-<a href="ads-details.html" class="float-right">View Details</a>
-</div>
-</div>
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-<div class="featured-box">
-<figure>
-<div class="homes-tag featured">Bags</div>
-<div class="homes-tag rent"><i class="lni-heart"></i> 129</div>
-<span class="price-save">
-$30
-</span>
-<a href="#"><img class="img-fluid" src="{{ URL::asset('assets/user') }}/img/featured/img-4.jpg" alt=""></a>
-</figure>
-<div class="content-wrapper">
-<div class="feature-content">
-<h4><a href="ads-details.html">Brown Leather Bag ...</a></h4>
-<p class="listing-tagline">Club and shop for you</p>
-<div class="meta-tag">
-<div class="listing-review">
-<span class="review-avg">4.5</span>
-5 Ratings
-</div>
-<div class="user-name">
-<a href="#"><i class="lni-user"></i> Rossi Josh</a>
-</div>
-<div class="listing-category">
-<a href="#"><i class="lni-leaf"></i>Others</a>
-</div>
-</div>
-</div>
-<div class="listing-bottom clearfix">
-<a href="#" class="float-left"><i class="lni-map-marker"></i> Chicago, US</a>
-<a href="ads-details.html" class="float-right">View Details</a>
-</div>
-</div>
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-<div class="featured-box">
-<figure>
-<div class="homes-tag featured">Apple</div>
-<div class="homes-tag rent"><i class="lni-heart"></i> 220</div>
-<span class="price-save">
-$700
-</span>
-<a href="#"><img class="img-fluid" src="{{ URL::asset('assets/user') }}/img/featured/img-5.jpg" alt=""></a>
-</figure>
-<div class="content-wrapper">
-<div class="feature-content">
-<h4><a href="ads-details.html">Iphonex 6 Plus Factor ...</a></h4>
-<p class="listing-tagline">Club and shop for you</p>
-<div class="meta-tag">
-<div class="listing-review">
-<span class="review-avg">4.5</span>
-2 Ratings
-</div>
-<div class="user-name">
-<a href="#"><i class="lni-user"></i> David Givens</a>
-</div>
-<div class="listing-category">
-<a href="#"><i class="lni-phone"></i>Phone</a>
-</div>
-</div>
-</div>
-<div class="listing-bottom clearfix">
-<a href="#" class="float-left"><i class="lni-map-marker"></i> California</a>
-<a href="ads-details.html" class="float-right">View Details</a>
-</div>
-</div>
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-<div class="featured-box">
-<figure>
-<div class="homes-tag featured">Furniture</div>
-<div class="homes-tag rent"><i class="lni-heart"></i> 180</div>
-<span class="price-save">
-$1000
-</span>
-<a href="#"><img class="img-fluid" src="{{ URL::asset('assets/user') }}/img/featured/img-6.jpg" alt=""></a>
-</figure>
-<div class="content-wrapper">
-<div class="feature-content">
-<h4><a href="ads-details.html">Wooden Dining Tabl ...</a></h4>
-<p class="listing-tagline">Club and shop for you</p>
-<div class="meta-tag">
-<div class="listing-review">
-<span class="review-avg">4.5</span>
-4 Ratings
-</div>
-<div class="user-name">
-<a href="#"><i class="lni-user"></i> John Smith</a>
-</div>
-<div class="listing-category">
-<a href="#"><i class="lni-home"></i>Home</a>
-</div>
-</div>
-</div>
-<div class="listing-bottom clearfix">
-<a href="#" class="float-left"><i class="lni-map-marker"></i> New York, US</a>
-<a href="ads-details.html" class="float-right">View Details</a>
-</div>
- </div>
-</div>
-</div>
+
+@endforeach    
+
+
 </div>
 </div>
 </section>
@@ -548,7 +386,7 @@ $1000
 </div>
 </section>
 
-<section id="categories" class="section-padding">
+<!-- <section id="categories" class="section-padding">
     <div class="container">
     <div class="row">
     <div class="col-12 text-center">
@@ -715,7 +553,7 @@ $1000
     </div>
     </div>
     </div>
-    </section>
+</section> -->
 <!-- <section class="works section-padding">
 <div class="container">
 <div class="row">

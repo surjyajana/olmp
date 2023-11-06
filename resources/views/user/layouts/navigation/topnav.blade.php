@@ -25,7 +25,7 @@
         Categories
         </a>
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Listings <i class="lni-chevron-down"></i>
         </a>
@@ -34,7 +34,7 @@
         <li><a class="dropdown-item" href="adlistinglist.html">Ad Listing</a></li>
         <li><a class="dropdown-item" href="ads-details.html">Listing Detail</a></li>
         </ul>
-        </li>
+        </li> -->
        
         
         <li class="nav-item">

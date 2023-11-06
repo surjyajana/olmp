@@ -28,7 +28,7 @@
         </div>
         <div class="form-group mb-3">
         <label class="control-label">Phone*</label>
-        <input class="form-control input-md"  type="text" value="{{$userDetails->mobile}}" readonly>
+        <input class="form-control input-md"  type="text" value="{{$userDetails->country_code}}{{$userDetails->mobile}}" readonly>
         </div>
         <div class="form-group mb-3">
         <label class="control-label">Enter Address*</label>

@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categories;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
-    private $viewFolder = 'admin/category/';
-    private $routePrefix = 'admin/category';
+    private $viewFolder = 'admin/sub_category/';
+    private $routePrefix = 'admin/sub-category';
 
     public function index()
     {
@@ -41,7 +42,7 @@ class CategoryController extends Controller
         $searchValue = $request->searchSearch;
 
 
-        $recordsQuery=Categories::where('deleted_at',NULL);
+        $recordsQuery=SubCategory::where('deleted_at',NULL);
 
         if($request->searchFdate!="" && $request->searchTdate!="")
         {
@@ -65,9 +66,9 @@ class CategoryController extends Controller
         {
 
             $sl=$k+1;
-            $name=$record->category_name;
-            $color=$record->color;
-            $icon=$record->icon;
+            $category_name=$record->sub_category_name;
+            $sub_category_name=$record->sub_category_name;
+    
             $created_at=date("d-M-Y", strtotime($record->created_at));
 
             $status_check='';
@@ -87,9 +88,8 @@ class CategoryController extends Controller
 
             $data_arr[] = array(
             'sl'=>$sl,
-            "name" =>$name,
-            "color" =>$color,
-            "icon" =>$icon,
+            "category_name" =>$category_name,
+            "sub_category_name" =>$sub_category_name,
             "status" =>$status,
             "created_at" =>$created_at,
             "action" =>$action,
@@ -109,44 +109,43 @@ class CategoryController extends Controller
 
     public function add()
     {
-    	return view($this->viewFolder.'add');
+        $category_data        = Categories::where('status',1)->where('deleted_at',NULL)->get();
+    	return view($this->viewFolder.'add',compact('category_data'));
     }
     
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-			'category_name' => 'required',
-			'color' => 'required',
-			'icon' => 'required',
+			'category_id' => 'required',
+			'sub_category_name' => 'required',
 		]);
 
         $input=$request->all();
        
-		$count = DB::table('tbl_categoriess')->where('category_name', '=', $input['category_name'])->count();
+		$count = DB::table('tbl_sub_categoriess')->where('sub_category_name', '=', $input['sub_category_name'])->count();
 		
 		if ($count == 0) 
 		{
-			$categorie = new Categories;
-            $categorie->category_name = $input['category_name'];
-            $categorie->color = $input['color'];
-            $categorie->icon = $input['icon'];        
+			$categorie = new SubCategory;
+            $categorie->category_id = $input['category_id'];
+            $categorie->sub_category_name = $input['sub_category_name'];       
             $categorie->save();
 			return redirect($this->routePrefix.'/list')->with('success', 'Successfully Submitted');
 		} 
 		else 
 		{
-			$roleRecord = DB::table('tbl_categoriess')->where('category_name', '=', $input['category_name'])->whereNull('deleted_at')->first();
+			$roleRecord = DB::table('tbl_sub_categoriess')->where('sub_category_name', '=', $input['sub_category_name'])->whereNull('deleted_at')->first();
 			if (!empty($roleRecord)) 
 			{
 				return redirect($this->routePrefix.'/add')->with('error', 'Duplicate Data');
 			} 
 			else 
 			{
-                $categorie = new Categories;
-                $categorie->category_name = $input['category_name'];
-                $categorie->color = $input['color'];
-                $categorie->icon = $input['icon'];        
-                $categorie->save();
+                $categorie = new SubCategory;
+                $categorie->required = $input['category_id'];
+                $categorie->color = $input['sub_category_name'];       
+                $categorie->save();    
+                
 				return redirect($this->routePrefix.'/list')->with('success', 'Successfully Submitted');
 			}
 		}
@@ -156,7 +155,7 @@ class CategoryController extends Controller
     {
         
         $input=$request->all();
-		$category = Categories::where('id', '=', $input['id'])->first();
+		$category = SubCategory::where('id', '=', $input['id'])->first();
 		
         if($category)
         {
@@ -179,15 +178,15 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-		$category             = Categories::where('id', '=', $id)->first();
-
-    	return view($this->viewFolder.'edit',compact('category'));
+		$sub_category             = SubCategory::where('id', '=', $id)->first();
+        $category_data        = Categories::where('status',1)->where('deleted_at',NULL)->get();
+    	return view($this->viewFolder.'edit',compact('category_data','sub_category'));
     }
 
     public function delete($id)
     {
        
-		$category = Categories::where('id', '=', $id)->first();
+		$category = SubCategory::where('id', '=', $id)->first();
         $category->deleted_at = date('Y-m-d');
         $category->save();
     	return redirect()->back()->with('success', 'Deleted updated successfully');
@@ -196,18 +195,16 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-			'category_name' => 'required',
-			'color' => 'required',
-			'icon' => 'required',
+			'category_id' => 'required',
+			'sub_category_name' => 'required',
 		]);
         $input=$request->all();
 
       
 
-        $categorie        = Categories::where('id', $input['edit_id'])->first();
-        $categorie->category_name = $input['category_name'];
-        $categorie->color = $input['color'];
-        $categorie->icon = $input['icon'];
+        $categorie        = SubCategory::where('id', $input['edit_id'])->first();
+        $categorie->category_id = $input['category_id'];
+        $categorie->sub_category_name = $input['sub_category_name'];       
         $categorie->save();
         
         return redirect($this->routePrefix.'/list')->with('success', 'Updated successfully.');

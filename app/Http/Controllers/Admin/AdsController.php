@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
-class CategoryController extends Controller
+class AdsController extends Controller
 {
-    private $viewFolder = 'admin/category/';
-    private $routePrefix = 'admin/category';
+    private $viewFolder = 'admin/ads/';
+    private $routePrefix = 'admin/ads';
 
     public function index()
     {

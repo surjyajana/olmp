@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\user\HomeController;
 
 
@@ -33,6 +35,11 @@ Route::middleware([Userauth::class])->group(function()
     Route::post('update-profile',[HomeController::class,'update_profile']);
     Route::get('post-ads',[HomeController::class,'post_ads']);
     Route::get('get-sub-category',[HomeController::class,'get_sub_category']);
+    Route::get('get-form',[HomeController::class,'get_form']);
+    Route::post('submit-ads',[HomeController::class,'submit_ads']);
+    Route::get('my-ads',[HomeController::class,'my_ads']);
+
+
 });
 
 
@@ -75,33 +82,76 @@ Route::middleware([Adminauth::class])->prefix('admin')->group(function()
     });
 
     //user module
-    Route::group(['prefix'=>'user'],function()
-    {
-        Route::get('/list',[UserController::class,'index']);
-        Route::get('/get-data-ajax',[UserController::class,'getDataAjax']);
-        Route::get('/add',[UserController::class,'add']);
-        Route::post('/store',[UserController::class,'store']);
-        Route::get('/list/status',[UserController::class,'status']);
-        Route::get('/edit/{id}',[UserController::class,'edit']);
-        Route::get('/delete/{id}',[UserController::class,'delete']);
-        Route::get('/{id}',[UserController::class,'delete']);
-        Route::post('/update',[UserController::class,'update']);
-    });
-
-    //user module
-    Route::group(['prefix'=>'category'],function()
-    {
-        Route::get('/list',[CategoryController::class,'index']);
-        Route::get('/get-data-ajax',[CategoryController::class,'getDataAjax']);
-        Route::get('/add',[CategoryController::class,'add']);
-        Route::post('/store',[CategoryController::class,'store']);
-        Route::get('/list/status',[CategoryController::class,'status']);
-        Route::get('/edit/{id}',[CategoryController::class,'edit']);
-        Route::get('/delete/{id}',[CategoryController::class,'delete']);
-        Route::get('/{id}',[CategoryController::class,'delete']);
-        Route::post('/update',[CategoryController::class,'update']);
-    });
-
+       //user module
+       Route::group(['prefix'=>'user'],function()
+       {
+           Route::get('/list',[UserController::class,'index']);
+           Route::get('/get-data-ajax',[UserController::class,'getDataAjax']);
+           Route::get('/add',[UserController::class,'add']);
+           Route::post('/store',[UserController::class,'store']);
+           Route::get('/list/status',[UserController::class,'status']);
+           Route::get('/edit/{id}',[UserController::class,'edit']);
+           Route::get('/delete/{id}',[UserController::class,'delete']);
+           Route::get('/{id}',[UserController::class,'delete']);
+           Route::post('/update',[UserController::class,'update']);
+       });
+   
+       //category module
+       Route::group(['prefix'=>'category'],function()
+       {
+           Route::get('/list',[CategoryController::class,'index']);
+           Route::get('/get-data-ajax',[CategoryController::class,'getDataAjax']);
+           Route::get('/add',[CategoryController::class,'add']);
+           Route::post('/store',[CategoryController::class,'store']);
+           Route::get('/list/status',[CategoryController::class,'status']);
+           Route::get('/edit/{id}',[CategoryController::class,'edit']);
+           Route::get('/delete/{id}',[CategoryController::class,'delete']);
+           Route::get('/{id}',[CategoryController::class,'delete']);
+           Route::post('/update',[CategoryController::class,'update']);
+       });
+   
+       //Sub Category module
+       Route::group(['prefix'=>'sub-category'],function()
+       {
+           Route::get('/list',[SubCategoryController::class,'index']);
+           Route::get('/get-data-ajax',[SubCategoryController::class,'getDataAjax']);
+           Route::get('/add',[SubCategoryController::class,'add']);
+           Route::post('/store',[SubCategoryController::class,'store']);
+           Route::get('/list/status',[SubCategoryController::class,'status']);
+           Route::get('/edit/{id}',[SubCategoryController::class,'edit']);
+           Route::get('/delete/{id}',[SubCategoryController::class,'delete']);
+           Route::get('/{id}',[SubCategoryController::class,'delete']);
+           Route::post('/update',[SubCategoryController::class,'update']);
+       });
+   
+       //brand module
+       Route::group(['prefix'=>'brand'],function()
+       {
+           Route::get('/list',[BrandController::class,'index']);
+           Route::get('/get-data-ajax',[BrandController::class,'getDataAjax']);
+           Route::get('/add',[BrandController::class,'add']);
+           Route::post('/store',[BrandController::class,'store']);
+           Route::get('/list/status',[BrandController::class,'status']);
+           Route::get('/edit/{id}',[BrandController::class,'edit']);
+           Route::get('/delete/{id}',[BrandController::class,'delete']);
+           Route::get('/{id}',[BrandController::class,'delete']);
+           Route::post('/update',[BrandController::class,'update']);
+       });
+   
+   
+       // ads post
+       Route::group(['prefix'=>'ads'],function()
+       {
+           Route::get('/list',[AdsController::class,'index']);
+           Route::get('/get-data-ajax',[AdsController::class,'getDataAjax']);
+           Route::get('/add',[AdsController::class,'add']);
+           Route::post('/store',[AdsController::class,'store']);
+           Route::get('/list/status',[AdsController::class,'status']);
+           Route::get('/edit/{id}',[AdsController::class,'edit']);
+           Route::get('/delete/{id}',[AdsController::class,'delete']);
+           Route::get('/{id}',[AdsController::class,'delete']);
+           Route::post('/update',[AdsController::class,'update']);
+       });
    
 
     //setting module

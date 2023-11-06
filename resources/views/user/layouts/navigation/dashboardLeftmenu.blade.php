@@ -21,19 +21,19 @@
     <nav class="navdashboard">
     <ul>
     <li>
-    <a class="active" href="{{ url('user-dashboard') }}">
+    <a class="{{ request()->is('user-dashboard') ? 'active' : '' }}" href="{{ url('user-dashboard') }}">
     <i class="lni-dashboard"></i>
     <span>Dashboard</span>
     </a>
     </li>
     <li>
-    <a href="{{ url('profile-setting') }}">
+    <a class="{{ request()->is('profile-setting') ? 'active' : '' }}" href="{{ url('profile-setting') }}">
     <i class="lni-cog"></i>
     <span>Profile Settings</span>
     </a>
     </li>
     <li>
-    <a href="account-myads.html">
+    <a class="{{ request()->is('my-ads') ? 'active' : '' }}" href="{{ url('my-ads') }}">
     <i class="lni-layers"></i>
     <span>My Ads</span>
     </a>
@@ -74,7 +74,7 @@
     <div class="widget">    
     <h4 class="widget-title">Advertisement</h4>
     <div class="add-box">
-        <img class="img-fluid" src="assets/img/img1.jpg" alt="">
+        <!-- <img class="img-fluid" src="assets/img/img1.jpg" alt=""> -->
     </div>
     </div>
     </aside>

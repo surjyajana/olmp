@@ -13,6 +13,7 @@ use App\Models\State;
 use App\Models\Categories;
 use App\Models\SubCategory;
 use App\Models\Brand;
+use App\Models\All_ads;
 
 use Mail;
 use App\Mail\TransactionsMail;
@@ -23,8 +24,9 @@ class HomeController extends Controller
 
     public function index()
     {
+        $alladList = All_ads::where('admin_status', '1')->whereNull('deleted_at')->orderBy('id','DESC')->limit(30)->get(); 
         
-    	return view($this->viewFolder.'home.index');
+    	return view($this->viewFolder.'home.index',['alladList'=>$alladList]);
     }
     public function mobile_login()
     {
@@ -134,8 +136,11 @@ class HomeController extends Controller
 
     public function post_ads()
     {
+        $userDetails = User::where('id', Session::get('user_details')['id'])->first();
+        $allState = State::get();
         $categoryList = Categories::where('status', '1')->whereNull('deleted_at')->orderBy('id','DESC')->get(); 
-    	return view($this->viewFolder.'home.post-ads',['categoryList'=>$categoryList]);
+       
+    	return view($this->viewFolder.'home.post-ads',['categoryList'=>$categoryList,'userDetails'=>$userDetails,'allState'=>$allState]);
     }
 
     public function get_sub_category(Request $Request)
@@ -146,12 +151,61 @@ class HomeController extends Controller
     }
 
 
-   
+    public function get_form()
+    {
+        $brandList = Brand::where('status', '1')->whereNull('deleted_at')->orderBy('id','DESC')->get(); 
+    	return view($this->viewFolder.'home.mobile_ads',['brandList'=>$brandList]);
+    }
     
+    public function submit_ads(Request $Request)
+    {
+        
+
+        $categoryDetails = Categories::where('id', @$Request->category_id)->first(); 
+        $subcategoryDetails = SubCategory::where('id', @$Request->sub_category_id)->first(); 
+        $brandDetails = Brand::where('id', $Request->brand_id)->first(); 
+
+       
+    
+        $imageName = time().'.'.$Request->photo[0]->extension();  
+        $Request->photo[0]->move(public_path('assets/user/ads_image'), $imageName);
+
+        if(isset($Request->photo[1]) && !empty($Request->photo[1])){
+            $imageName1 = '1'.time().'.'.$Request->photo[1]->extension();  
+            $Request->photo[1]->move(public_path('assets/user/ads_image'), $imageName1);
+        }
+
+        $insert = [
+            'category_id' => $Request->category_id,
+            'sub_category_id'=>$Request->sub_category_id,
+            'ad_title'=>$Request->ad_title,
+            'description'=>$Request->description,
+            'price'=>$Request->price,
+            'ad_type'=>$Request->ad_type,
+            'customer_name'=>$Request->customer_name,
+            'phone'=>$Request->phone,
+            'state'=>$Request->state,
+            'city'=>$Request->city,
+            'category_name'=>$categoryDetails->category_name,
+            'sub_category_name'=>$subcategoryDetails->sub_category_name,
+            'customer_id'=>Session::get('user_details')['id'],
+            'brand_id'=>@$Request->brand_id,
+            'brand_name'=>@$brandDetails->brand_name,
+            'ad_photo_1'=>$imageName,
+            'ad_photo_2'=>@$imageName1,
+        ];
+        $adDetails=All_ads::create($insert);
+        
+        Session::flash('message', 'Ad added successfully');
+        return redirect('my-ads');
+    }
 
 
-
-
+    public function my_ads()
+    {
+        $myadList = All_ads::where('customer_id',Session::get('user_details')['id'])->orderBy('id','DESC')->get(); 
+    	return view($this->viewFolder.'home.my_ads',['myadList'=>$myadList]);
+    }
 
 
 
